@@ -1,14 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <stdint.h>
-#include <sys/socket.h>
-#include <sys/types.h>
-#include <netdb.h>
-
-#include <errno.h>
-#include <arpa/inet.h>
-
 
 typedef struct {
     char firstName[8];
@@ -23,7 +13,6 @@ typedef union {
 } SER;
 
 
-
 void writeToFile(FILE* filePtr, SER ser) {
     int bytesWritten = 0;
     while(bytesWritten <= sizeof(Person)) {        
@@ -36,17 +25,14 @@ void writeToFile(FILE* filePtr, SER ser) {
 
 SER readFromFile(FILE* filePtr) {
     SER deSer;
-
     int byteRead = 0;
     int counter = 0;
+    
     while(byteRead != EOF) {
         byteRead = fgetc(filePtr);
-        // printf("%d \n", byteRead);
         deSer.pos[counter++] = byteRead;
     }
-
-    // printf("%s\n", deSer->data.firstName);
-
+    
     return deSer;
 }
 
