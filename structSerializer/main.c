@@ -24,25 +24,25 @@ typedef union {
 
 
 
-void writeToFile(FILE* filePtr, SER* ser) {
+void writeToFile(FILE* filePtr, SER ser) {
     int bytesWritten = 0;
     while(bytesWritten <= sizeof(Person)) {        
-        fputc(ser->pos[bytesWritten++], filePtr);
+        fputc(ser.pos[bytesWritten++], filePtr);
     }
 
     fputc('\n', filePtr);
 }
 
 
-SER* readFromFile(FILE* filePtr) {
-    SER* deSer = malloc(sizeof(SER));
+SER readFromFile(FILE* filePtr) {
+    SER deSer;
 
     int byteRead = 0;
     int counter = 0;
     while(byteRead != EOF) {
         byteRead = fgetc(filePtr);
         // printf("%d \n", byteRead);
-        deSer->pos[counter++] = byteRead;
+        deSer.pos[counter++] = byteRead;
     }
 
     // printf("%s\n", deSer->data.firstName);
@@ -55,12 +55,12 @@ int main() {
     FILE* serFilePtr = fopen("ser.txt", "w+");
     
     Person briBri = {"Brian", "Fister", 2};
-    SER* ser = malloc(sizeof(SER));
-    ser->data = briBri;
+    SER ser;
+    ser.data = briBri;
 
     writeToFile(serFilePtr, ser);
     rewind(serFilePtr);
-    SER* deSer = readFromFile(serFilePtr);
+    SER deSer = readFromFile(serFilePtr);
     fclose(serFilePtr);
 
 
