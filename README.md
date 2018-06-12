@@ -1,4 +1,4 @@
-fu
+feaster university
 ==
 
 Feaster University
